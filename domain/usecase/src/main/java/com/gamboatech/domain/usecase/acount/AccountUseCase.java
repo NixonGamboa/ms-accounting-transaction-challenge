@@ -7,6 +7,7 @@ public interface AccountUseCase {
 
     Account edit(Long id, Boolean status, String type) throws ClassNotFoundException;
 
-
     Long  delete(Long id) throws ClassNotFoundException;
+
+    Long updateBalance(Long accountId, Long movementValue) throws ClassNotFoundException;
 }

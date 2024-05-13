@@ -2,6 +2,8 @@ package com.gamboatech.domain.usecase.acount;
 
 import com.gamboatech.application.adapters.driveradapters.sql.AccountRepositoryAdapter;
 import com.gamboatech.domain.commons.AccountType;
+import com.gamboatech.domain.commons.BusinessException;
+import com.gamboatech.domain.commons.ErrorCodes;
 import com.gamboatech.domain.model.Account;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +34,17 @@ public class AccountUseCaseImpl implements AccountUseCase{
         //TODO: eliminar movimientos asociados a la cuenta
         repositoryAdapter.delete(account.getId());
         return account.getId();
+    }
+
+    @Override
+    public Long updateBalance(Long accountId, Long movementValue) throws ClassNotFoundException {
+        Account account = repositoryAdapter.findById(accountId);
+        Long newBalance = account.getAvailableBalance()+movementValue;
+        if(newBalance < 0){
+            throw new BusinessException("Saldo no disponible", ErrorCodes.UNAVAILABLE_BALANCE);
+        }
+        repositoryAdapter.save(account.setAvailableBalance(newBalance));
+        return newBalance;
     }
 
     private Account buildNewAccount(Account account){
