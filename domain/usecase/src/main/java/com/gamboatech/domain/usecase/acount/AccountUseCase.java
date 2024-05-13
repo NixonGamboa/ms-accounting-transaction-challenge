@@ -9,5 +9,5 @@ public interface AccountUseCase {
 
     Long  delete(Long id) throws ClassNotFoundException;
 
-    Long updateBalance(Long accountId, Long movementValue) throws ClassNotFoundException;
+    Long updateBalance(Long accountId, Long movementValue);
 }

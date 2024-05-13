@@ -1,6 +1,8 @@
 package com.gamboatech.infrastructure.driveradapter.sql.oracle.adapters;
 
 import com.gamboatech.application.adapters.driveradapters.sql.AccountRepositoryAdapter;
+import com.gamboatech.domain.commons.BusinessException;
+import com.gamboatech.domain.commons.ErrorCodes;
 import com.gamboatech.domain.model.Account;
 import com.gamboatech.infrastructure.driveradapter.sql.oracle.entities.AccountEntity;
 import com.gamboatech.infrastructure.driveradapter.sql.oracle.repositories.AccountEntityRepository;
@@ -23,10 +25,12 @@ public class AccountRepositoryAdapterImpl implements AccountRepositoryAdapter {
     }
 
     @Override
-    public Account findById(Long id) throws ClassNotFoundException {
+    public Account findById(Long id){
         Optional<AccountEntity> optionalAccount =  repository.findById(id);
         if(optionalAccount.isEmpty()){
-            throw new ClassNotFoundException(String.format("La cuenta con id: %d no fue encontrada",id));
+            throw new BusinessException(
+                    String.format("La cuenta con id: %d no fue encontrada",id)
+                    , ErrorCodes.NOT_FOUND);
         }
         return toModel(optionalAccount.get());
     }

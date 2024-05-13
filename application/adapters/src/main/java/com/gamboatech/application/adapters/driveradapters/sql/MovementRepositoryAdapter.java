@@ -5,4 +5,6 @@ import com.gamboatech.domain.model.Movement;
 public interface MovementRepositoryAdapter {
     Movement save(Movement movement);
     void deleteByAccountId(Long accountId);
+
+    Movement findById(Long id);
 }

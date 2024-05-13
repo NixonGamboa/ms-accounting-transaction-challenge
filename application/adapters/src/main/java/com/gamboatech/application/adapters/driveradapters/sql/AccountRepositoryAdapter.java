@@ -5,7 +5,7 @@ import com.gamboatech.domain.model.Account;
 public interface AccountRepositoryAdapter {
     Account save(Account account);
 
-    Account findById(Long id) throws ClassNotFoundException;
+    Account findById(Long id);
 
     Long delete(Long id);
 }

@@ -41,7 +41,7 @@ public class AccountUseCaseImpl implements AccountUseCase{
     }
 
     @Override
-    public Long updateBalance(Long accountId, Long movementValue) throws ClassNotFoundException {
+    public Long updateBalance(Long accountId, Long movementValue) {
         Account account = repositoryAdapter.findById(accountId);
         Long newBalance = account.getAvailableBalance()+movementValue;
         if(newBalance < 0){
