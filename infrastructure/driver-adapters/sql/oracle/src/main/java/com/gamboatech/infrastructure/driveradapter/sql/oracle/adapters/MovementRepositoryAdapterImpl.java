@@ -19,6 +19,12 @@ public class MovementRepositoryAdapterImpl implements MovementRepositoryAdapter 
     public Movement save(Movement movement) {
         return toModel(repository.save(toEntity(movement)));
     }
+
+    @Override
+    public void deleteByAccountId(Long accountId){
+        repository.deleteByAccountId(accountId);
+    }
+
     private Movement toModel(MovementEntity entity){
         return new Movement()
                 .setId(entity.getId())

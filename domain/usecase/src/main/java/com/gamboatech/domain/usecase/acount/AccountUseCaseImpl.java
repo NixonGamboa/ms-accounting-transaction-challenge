@@ -1,6 +1,7 @@
 package com.gamboatech.domain.usecase.acount;
 
 import com.gamboatech.application.adapters.driveradapters.sql.AccountRepositoryAdapter;
+import com.gamboatech.application.adapters.driveradapters.sql.MovementRepositoryAdapter;
 import com.gamboatech.domain.commons.AccountType;
 import com.gamboatech.domain.commons.BusinessException;
 import com.gamboatech.domain.commons.ErrorCodes;
@@ -13,9 +14,11 @@ import java.util.Objects;
 public class AccountUseCaseImpl implements AccountUseCase{
 
     private final AccountRepositoryAdapter repositoryAdapter;
+    private final MovementRepositoryAdapter movementRepositoryAdapter;
 
-    public AccountUseCaseImpl(AccountRepositoryAdapter repositoryAdapter) {
+    public AccountUseCaseImpl(AccountRepositoryAdapter repositoryAdapter, MovementRepositoryAdapter movementRepositoryAdapter) {
         this.repositoryAdapter = repositoryAdapter;
+        this.movementRepositoryAdapter = movementRepositoryAdapter;
     }
 
     @Override
@@ -32,6 +35,7 @@ public class AccountUseCaseImpl implements AccountUseCase{
     public Long delete(Long id) throws ClassNotFoundException {
         Account account = repositoryAdapter.findById(id);
         //TODO: eliminar movimientos asociados a la cuenta
+        movementRepositoryAdapter.deleteByAccountId(account.getId());
         repositoryAdapter.delete(account.getId());
         return account.getId();
     }
