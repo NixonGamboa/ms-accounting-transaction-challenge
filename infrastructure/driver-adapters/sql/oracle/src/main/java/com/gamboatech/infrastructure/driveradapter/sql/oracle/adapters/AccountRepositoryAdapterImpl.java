@@ -1,7 +1,6 @@
 package com.gamboatech.infrastructure.driveradapter.sql.oracle.adapters;
 
 import com.gamboatech.application.adapters.driveradapters.sql.AccountRepositoryAdapter;
-import com.gamboatech.domain.commons.AccountType;
 import com.gamboatech.domain.model.Account;
 import com.gamboatech.infrastructure.driveradapter.sql.oracle.entities.AccountEntity;
 import com.gamboatech.infrastructure.driveradapter.sql.oracle.repositories.AccountEntityRepository;
@@ -24,9 +23,18 @@ public class AccountRepositoryAdapterImpl implements AccountRepositoryAdapter {
     }
 
     @Override
-    public Account findById(Long id) {
+    public Account findById(Long id) throws ClassNotFoundException {
         Optional<AccountEntity> optionalAccount =  repository.findById(id);
-        return toModel(optionalAccount.orElseGet(AccountEntity::new));
+        if(optionalAccount.isEmpty()){
+            throw new ClassNotFoundException(String.format("La cuenta con id: %d no fue encontrada",id));
+        }
+        return toModel(optionalAccount.get());
+    }
+
+    @Override
+    public Long delete(Long id) {
+        repository.deleteById(id);
+        return id;
     }
 
     private Account toModel(AccountEntity entity){

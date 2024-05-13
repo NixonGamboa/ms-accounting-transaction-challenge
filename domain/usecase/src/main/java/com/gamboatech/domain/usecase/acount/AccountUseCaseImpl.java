@@ -27,8 +27,11 @@ public class AccountUseCaseImpl implements AccountUseCase{
     }
 
     @Override
-    public void delete(Long id) {
-
+    public Long delete(Long id) throws ClassNotFoundException {
+        Account account = repositoryAdapter.findById(id);
+        //TODO: eliminar movimientos asociados a la cuenta
+        repositoryAdapter.delete(account.getId());
+        return account.getId();
     }
 
     private Account buildNewAccount(Account account){
@@ -37,10 +40,6 @@ public class AccountUseCaseImpl implements AccountUseCase{
 
     private Account getUpdatedAccount(Long id, Boolean status, String type) throws ClassNotFoundException {
         Account currentAccount = repositoryAdapter.findById(id);
-
-        if(Objects.isNull(currentAccount.getId())){
-            throw new ClassNotFoundException(String.format("La cuenta con id: %d no fue encontrada",id));
-        }
 
         return currentAccount
                 .setStatus(Objects.nonNull(status)? status : currentAccount.getStatus())

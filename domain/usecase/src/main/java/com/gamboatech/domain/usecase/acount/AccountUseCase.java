@@ -8,5 +8,5 @@ public interface AccountUseCase {
     Account edit(Long id, Boolean status, String type) throws ClassNotFoundException;
 
 
-    void  delete(Long id);
+    Long  delete(Long id) throws ClassNotFoundException;
 }

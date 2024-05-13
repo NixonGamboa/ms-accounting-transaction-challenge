@@ -19,8 +19,9 @@ public class AccountController {
 
 
     @PostMapping
-    public AccountDto create(@RequestBody AccountDto accountDto){
-        return AccountDto.modelToDto(accountUsecase.create(accountDto.toModel()));
+    public ResponseEntity<AccountDto> create(@RequestBody AccountDto accountDto){
+        AccountDto response = AccountDto.modelToDto(accountUsecase.create(accountDto.toModel()));
+        return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{id}")
@@ -38,7 +39,13 @@ public class AccountController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id){
-        accountUsecase.delete(id);
+    public ResponseEntity<Long> delete(@PathVariable("id") Long id){
+        try {
+            return ResponseEntity.ok(accountUsecase.delete(id));
+        }catch (ClassNotFoundException e){
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
+
 }
