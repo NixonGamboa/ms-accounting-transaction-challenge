@@ -1,4 +1,4 @@
-package com.gamboatech.infrastructure.entrypoints.rest.account;
+package com.gamboatech.infrastructure.entrypoints.rest.movement;
 
 import com.gamboatech.domain.commons.BusinessException;
 import com.gamboatech.domain.commons.ErrorCodes;
@@ -22,18 +22,8 @@ public class MovementController {
 
     @PostMapping
     public ResponseEntity<MovementDto> register(@RequestBody MovementDto movementDto){
-        try {
-            MovementDto response = MovementDto.modelToDto(movementUseCase.register(movementDto.toModel()));
-            return ResponseEntity.ok(response);
-        }catch (BusinessException e){
-            if(e.getErrorCode().equals(ErrorCodes.UNAVAILABLE_BALANCE)){
-                throw  new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-            }
-            throw  new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
-        } catch (ClassNotFoundException e){
-            log.error(e.getMessage());
-            throw  new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
-        }
+        MovementDto response = MovementDto.modelToDto(movementUseCase.register(movementDto.toModel()));
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")

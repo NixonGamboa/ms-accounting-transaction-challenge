@@ -30,22 +30,12 @@ public class AccountController {
             @RequestParam(name = "status", required = false) Boolean status,
             @RequestParam(name = "type", required = false) String type
     ) {
-        try {
-            return ResponseEntity.ok(AccountDto.modelToDto(accountUsecase.edit(id,status,type)));
-        } catch (ClassNotFoundException e){
-            log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        return ResponseEntity.ok(AccountDto.modelToDto(accountUsecase.edit(id,status,type)));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> delete(@PathVariable("id") Long id){
-        try {
-            return ResponseEntity.ok(accountUsecase.delete(id));
-        }catch (ClassNotFoundException e){
-            log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        return ResponseEntity.ok(accountUsecase.delete(id));
     }
 
 }

@@ -27,14 +27,13 @@ public class AccountUseCaseImpl implements AccountUseCase{
     }
 
     @Override
-    public Account edit(Long id, Boolean status, String type) throws ClassNotFoundException {
+    public Account edit(Long id, Boolean status, String type)  {
         return repositoryAdapter.save(getUpdatedAccount(id, status, type));
     }
 
     @Override
-    public Long delete(Long id) throws ClassNotFoundException {
+    public Long delete(Long id) {
         Account account = repositoryAdapter.findById(id);
-        //TODO: eliminar movimientos asociados a la cuenta
         movementRepositoryAdapter.deleteByAccountId(account.getId());
         repositoryAdapter.delete(account.getId());
         return account.getId();
@@ -55,7 +54,7 @@ public class AccountUseCaseImpl implements AccountUseCase{
         return account.setAvailableBalance(account.getInitialBalance());
     }
 
-    private Account getUpdatedAccount(Long id, Boolean status, String type) throws ClassNotFoundException {
+    private Account getUpdatedAccount(Long id, Boolean status, String type){
         Account currentAccount = repositoryAdapter.findById(id);
 
         return currentAccount
