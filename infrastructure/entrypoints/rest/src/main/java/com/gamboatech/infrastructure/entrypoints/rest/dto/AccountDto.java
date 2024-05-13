@@ -22,7 +22,7 @@ public class AccountDto {
         return new Account()
                 .setId(this.id)
                 .setAccountNumber(this.accountNumber)
-                .setType(AccountType.valueOf(this.type))
+                .setTypeFromString(this.type)
                 .setInitialBalance(this.initialBalance)
                 .setStatus(this.status)
                 .setClientId(this.clientId);
@@ -31,7 +31,7 @@ public class AccountDto {
         return new AccountDto()
                 .setId(model.getId())
                 .setAccountNumber(model.getAccountNumber())
-                .setType(model.getType().toString())
+                .setType(model.getTypeToString())
                 .setInitialBalance(model.getInitialBalance())
                 .setStatus(model.getStatus())
                 .setClientId(model.getClientId());
