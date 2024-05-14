@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -16,8 +17,10 @@ public class Account {
     private AccountType type;
     private Long initialBalance;
     private Boolean status;
-    private String clientId;
+    private Long clientId;
     private Long availableBalance;
+    private List<Movement> movements;
+
 
     public String getTypeToString(){
         if(Objects.isNull(this.type)){

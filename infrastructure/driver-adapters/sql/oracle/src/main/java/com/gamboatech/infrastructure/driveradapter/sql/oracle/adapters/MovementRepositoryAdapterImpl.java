@@ -4,11 +4,12 @@ import com.gamboatech.application.adapters.driveradapters.sql.MovementRepository
 import com.gamboatech.domain.commons.BusinessException;
 import com.gamboatech.domain.commons.ErrorCodes;
 import com.gamboatech.domain.model.Movement;
-import com.gamboatech.infrastructure.driveradapter.sql.oracle.entities.AccountEntity;
 import com.gamboatech.infrastructure.driveradapter.sql.oracle.entities.MovementEntity;
 import com.gamboatech.infrastructure.driveradapter.sql.oracle.repositories.MovementEntityRepository;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -39,6 +40,15 @@ public class MovementRepositoryAdapterImpl implements MovementRepositoryAdapter 
                     ,ErrorCodes.NOT_FOUND);
         }
         return toModel(optionalMovement.get());
+    }
+
+    @Override
+    public List<Movement> findByAccountIdAndDateBetween(Long accountId, LocalDateTime initialDate, LocalDateTime endDate) {
+        return repository.findByAccountIdAndMovementDateBetween(accountId, initialDate, endDate)
+                .stream().map(
+                        this::toModel
+                )
+                .toList();
     }
 
     private Movement toModel(MovementEntity entity){

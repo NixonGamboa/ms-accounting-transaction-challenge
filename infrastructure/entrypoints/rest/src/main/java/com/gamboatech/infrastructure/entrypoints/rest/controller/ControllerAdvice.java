@@ -1,8 +1,9 @@
-package com.gamboatech.infrastructure.entrypoints.rest.commons;
+package com.gamboatech.infrastructure.entrypoints.rest.controller;
 
 import com.gamboatech.domain.commons.BusinessException;
 import com.gamboatech.domain.commons.ErrorCodes;
 import com.gamboatech.infrastructure.entrypoints.rest.dto.ErrorDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,6 +16,7 @@ import static com.gamboatech.domain.commons.ErrorCodes.UNAVAILABLE_BALANCE;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
+@Slf4j
 @RestControllerAdvice
 public class ControllerAdvice {
 
@@ -24,7 +26,7 @@ public class ControllerAdvice {
                 .code(ex.getErrorCode().name())
                 .message(ex.getMessage())
                 .build();
-
+        log.error(ex.getMessage());
         return new ResponseEntity<>(error,httpStatusCodeMapper(ex.getErrorCode()));
     }
 

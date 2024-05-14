@@ -7,10 +7,15 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 public interface MovementEntityRepository extends JpaRepository<MovementEntity, Long> {
 
     @Transactional
     @Modifying
     @Query("DELETE FROM MovementEntity e WHERE e.accountId = :accountId")
     void deleteByAccountId(@Param("accountId") Long accountId);
+
+    List<MovementEntity> findByAccountIdAndMovementDateBetween(Long accountId, LocalDateTime initialDate, LocalDateTime endDate);
 }

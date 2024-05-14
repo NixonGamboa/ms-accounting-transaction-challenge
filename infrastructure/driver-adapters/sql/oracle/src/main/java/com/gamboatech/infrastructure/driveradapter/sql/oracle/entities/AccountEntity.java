@@ -18,6 +18,6 @@ public class AccountEntity {
     private String type;
     private Long initialBalance;
     private Boolean status;
-    private String clientId;
+    private Long clientId;
     private Long availableBalance;
 }

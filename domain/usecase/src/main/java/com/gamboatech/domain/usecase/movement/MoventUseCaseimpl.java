@@ -6,6 +6,7 @@ import com.gamboatech.domain.usecase.acount.AccountUseCase;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 public class MoventUseCaseimpl implements MovementUseCase{
@@ -30,6 +31,11 @@ public class MoventUseCaseimpl implements MovementUseCase{
     public Movement cancel(Long id) {
         Movement movement = buildCancelationMovement(repositoryAdapter.findById(id));
         return this.register(movement);
+    }
+
+    @Override
+    public List<Movement> getByAccountIdAndDateBetween(Long accountId, LocalDateTime initialDate, LocalDateTime endDate) {
+        return repositoryAdapter.findByAccountIdAndDateBetween(accountId, initialDate, endDate);
     }
 
     private Movement buildCancelationMovement(Movement toCancel){

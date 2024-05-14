@@ -8,6 +8,7 @@ import com.gamboatech.infrastructure.driveradapter.sql.oracle.entities.AccountEn
 import com.gamboatech.infrastructure.driveradapter.sql.oracle.repositories.AccountEntityRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -39,6 +40,11 @@ public class AccountRepositoryAdapterImpl implements AccountRepositoryAdapter {
     public Long delete(Long id) {
         repository.deleteById(id);
         return id;
+    }
+
+    @Override
+    public List<Account> findByClientId(Long clientId) {
+        return repository.findByClientId(clientId).stream().map(this::toModel).toList();
     }
 
     private Account toModel(AccountEntity entity){

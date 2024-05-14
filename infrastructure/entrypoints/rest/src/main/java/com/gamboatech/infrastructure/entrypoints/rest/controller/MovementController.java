@@ -1,4 +1,4 @@
-package com.gamboatech.infrastructure.entrypoints.rest.movement;
+package com.gamboatech.infrastructure.entrypoints.rest.controller;
 
 import com.gamboatech.domain.commons.BusinessException;
 import com.gamboatech.domain.commons.ErrorCodes;

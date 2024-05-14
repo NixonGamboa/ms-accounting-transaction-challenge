@@ -8,6 +8,7 @@ import com.gamboatech.domain.commons.ErrorCodes;
 import com.gamboatech.domain.model.Account;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Objects;
 
 @Component
@@ -48,6 +49,11 @@ public class AccountUseCaseImpl implements AccountUseCase{
         }
         repositoryAdapter.save(account.setAvailableBalance(newBalance));
         return newBalance;
+    }
+
+    @Override
+    public List<Account> getByClientId(Long clientId) {
+        return repositoryAdapter.findByClientId(clientId);
     }
 
     private Account buildNewAccount(Account account){

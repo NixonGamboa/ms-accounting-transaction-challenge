@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,7 +18,8 @@ public class AccountDto {
     private String type;
     private Long initialBalance;
     private Boolean status;
-    private String clientId;
+    private Long clientId;
+    private List<MovementDto> movements;
 
     public Account toModel(){
         return new Account()
@@ -25,7 +28,8 @@ public class AccountDto {
                 .setTypeFromString(this.type)
                 .setInitialBalance(this.initialBalance)
                 .setStatus(this.status)
-                .setClientId(this.clientId);
+                .setClientId(this.clientId)
+                .setMovements(this.movements.stream().map(MovementDto::toModel).toList());
     }
     public static AccountDto modelToDto(Account model){
         return new AccountDto()
@@ -34,6 +38,7 @@ public class AccountDto {
                 .setType(model.getTypeToString())
                 .setInitialBalance(model.getInitialBalance())
                 .setStatus(model.getStatus())
-                .setClientId(model.getClientId());
+                .setClientId(model.getClientId())
+                .setMovements(model.getMovements().stream().map(MovementDto::modelToDto).toList());
     }
 }
