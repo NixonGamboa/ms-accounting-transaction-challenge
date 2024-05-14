@@ -1,0 +1,7 @@
+dependencies {
+    implementation project(':domain-model')
+    implementation project(':application-adapters')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.1.2'
+    implementation "org.modelmapper:modelmapper:${modelmapper_version}"
+}

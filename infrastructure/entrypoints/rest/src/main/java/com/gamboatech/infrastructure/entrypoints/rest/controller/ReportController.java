@@ -22,11 +22,11 @@ public class ReportController {
 
     @GetMapping
     public ResponseEntity<ReportDto> accountStatus(
-            @RequestParam("client_id") Long clientId,
+            @RequestParam("identificacion_cliente") String clientIdentificationNumber,
             @RequestParam("fecha_inicial") LocalDateTime initialDate,
             @RequestParam("fecha_final") LocalDateTime endDate){
 
-        Report report = reportUseCase.generateReport(clientId, initialDate,endDate);
+        Report report = reportUseCase.generateReport(clientIdentificationNumber, initialDate,endDate);
         ReportDto response = ReportDto.modelToDto(report);
         return ResponseEntity.ok(response);
     }

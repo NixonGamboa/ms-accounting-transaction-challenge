@@ -7,6 +7,7 @@ dependencies {
     implementation project(':entrypoints-rest')
     implementation project(':sql-oracle')
     implementation project(':application-adapters')
+    implementation project(':rest-client')
 
 
     implementation "org.reactivecommons.utils:object-mapper:${object_mapper_version}"

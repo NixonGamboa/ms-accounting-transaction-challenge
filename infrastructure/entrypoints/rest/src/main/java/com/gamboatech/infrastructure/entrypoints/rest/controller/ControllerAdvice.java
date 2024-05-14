@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.EnumMap;
 
-import static com.gamboatech.domain.commons.ErrorCodes.NOT_FOUND;
-import static com.gamboatech.domain.commons.ErrorCodes.UNAVAILABLE_BALANCE;
+import static com.gamboatech.domain.commons.ErrorCodes.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
@@ -35,6 +34,7 @@ public class ControllerAdvice {
         EnumMap<ErrorCodes, HttpStatus> errorCodeMapper = new EnumMap<>(ErrorCodes.class);
         errorCodeMapper.put(UNAVAILABLE_BALANCE,BAD_REQUEST);
         errorCodeMapper.put(NOT_FOUND,HttpStatus.NOT_FOUND);
+        errorCodeMapper.put(CLIENT_ERROR,HttpStatus.SERVICE_UNAVAILABLE);
 
         return errorCodeMapper.getOrDefault(errorCode,INTERNAL_SERVER_ERROR);
     }
