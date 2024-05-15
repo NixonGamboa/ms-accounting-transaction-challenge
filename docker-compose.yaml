@@ -1,0 +1,14 @@
+services:
+  ms-accounting-transactions:
+    build: .
+    ports:
+      - "8084:8084"
+  myoracle:
+    image: gvenzl/oracle-free
+    ports:
+      - "1521:1521"
+    environment:
+      - ORACLE_DATABASE=productiondb
+      - APP_USER=develop
+      - APP_USER_PASSWORD=adminroot
+      - ORACLE_PASSWORD=adminroot

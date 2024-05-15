@@ -1,0 +1,7 @@
+spring:
+  rest-client:
+    url:
+      client-service: http://ms-users:8082/clientes
+  rest-template:
+    ssl:
+      enable: false
