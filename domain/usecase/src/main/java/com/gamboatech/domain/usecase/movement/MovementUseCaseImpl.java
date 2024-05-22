@@ -4,6 +4,8 @@ import com.gamboatech.application.adapters.driveradapters.sql.MovementRepository
 import com.gamboatech.domain.model.Movement;
 import com.gamboatech.domain.usecase.acount.AccountUseCase;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.TransactionException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,6 +23,7 @@ public class MovementUseCaseImpl implements MovementUseCase{
     }
 
     @Override
+    @Transactional(rollbackFor = TransactionException.class)
     public Movement register(Movement movement)  {
         Long newBalance = accountUseCase.updateBalance(movement.getAccountId(), movement.getValue());
         Movement movementUpdated= movement.setNewBalance(newBalance);
