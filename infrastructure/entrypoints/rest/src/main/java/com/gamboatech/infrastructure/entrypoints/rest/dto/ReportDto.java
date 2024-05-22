@@ -15,12 +15,6 @@ public class ReportDto {
     private LocalDateTime endDate;
     private List<AccountDto> accounts;
 
-//    public Report toModel(){
-//        return new Report()
-//                .setClientId(this.clientId)
-//                .setAccounts(this.accounts.stream().map(AccountReportDto::toModel).toList());
-//    }
-
     public static ReportDto modelToDto(Report model){
         return new ReportDto()
                 .setClientId(model.getClientId())

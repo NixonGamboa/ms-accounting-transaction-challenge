@@ -9,7 +9,6 @@ import com.gamboatech.infrastructure.driveradapter.sql.oracle.repositories.Accou
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Component

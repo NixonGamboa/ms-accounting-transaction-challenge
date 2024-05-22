@@ -6,13 +6,12 @@ import com.gamboatech.domain.commons.ErrorCodes;
 import com.gamboatech.infrastructure.driveradapters.rest.client.dto.ClientDto;
 import com.gamboatech.infrastructure.driveradapters.rest.client.dto.ErrorDto;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.ConnectException;
+import java.util.Objects;
 
 @Component
 public class UserClientAdapterImpl implements UserClientAdapter {
@@ -27,8 +26,13 @@ public class UserClientAdapterImpl implements UserClientAdapter {
 
     @Override
     public Long getClientIdByIdentificationNumber( String identificationNumber){
-        return consumeRestService(identificationNumber).getId();
 
+        ClientDto response = consumeRestService(identificationNumber);
+
+        if(Objects.isNull(response) || Objects.isNull(response.getId()) )
+            throw new BusinessException("Cliente No encontrado", ErrorCodes.NOT_FOUND);
+
+        return response.getId();
     }
 
     private ClientDto consumeRestService(String identificationNumber) {

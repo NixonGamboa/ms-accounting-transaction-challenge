@@ -26,17 +26,15 @@ public class RestTemplateConfig {
     public RestTemplate restTemplate(RestTemplateProperties restTemplateProperties) {
         if (restTemplateProperties.getSsl().isEnable()) return new RestTemplate();
 
-        RestTemplateCustomizer customizer = restTemplate -> {
-            restTemplate.setRequestFactory(new NoopRequestFactory());
-        };
+        RestTemplateCustomizer customizer = restTemplate -> restTemplate.setRequestFactory(new NoopRequestFactory());
         return new RestTemplateBuilder().additionalCustomizers(customizer).build();
     }
 
     private static class NoopRequestFactory extends SimpleClientHttpRequestFactory {
         @Override
         protected void prepareConnection(HttpURLConnection connection, String httpMethod) throws IOException {
-            if (connection instanceof HttpsURLConnection) {
-                ((HttpsURLConnection) connection).setHostnameVerifier((hostname, session) -> true);
+            if (connection instanceof HttpsURLConnection myConnection) {
+                myConnection.setHostnameVerifier((hostname, session) -> true);
             }
             super.prepareConnection(connection, httpMethod);
         }

@@ -1,6 +1,5 @@
 package com.gamboatech.infrastructure.driveradapters.rest.client.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

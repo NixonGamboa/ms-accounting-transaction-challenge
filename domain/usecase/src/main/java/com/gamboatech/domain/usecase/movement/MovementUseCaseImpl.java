@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
-public class MoventUseCaseimpl implements MovementUseCase{
+public class MovementUseCaseImpl implements MovementUseCase{
 
     private final MovementRepositoryAdapter repositoryAdapter;
 
     private final AccountUseCase accountUseCase;
 
-    public MoventUseCaseimpl(MovementRepositoryAdapter repositoryAdapter, AccountUseCase accountUseCase) {
+    public MovementUseCaseImpl(MovementRepositoryAdapter repositoryAdapter, AccountUseCase accountUseCase) {
         this.repositoryAdapter = repositoryAdapter;
         this.accountUseCase = accountUseCase;
     }

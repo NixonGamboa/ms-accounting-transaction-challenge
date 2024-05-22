@@ -1,14 +1,10 @@
 package com.gamboatech.infrastructure.entrypoints.rest.controller;
 
-import com.gamboatech.domain.commons.BusinessException;
-import com.gamboatech.domain.commons.ErrorCodes;
 import com.gamboatech.domain.usecase.movement.MovementUseCase;
 import com.gamboatech.infrastructure.entrypoints.rest.dto.MovementDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 @RestController
